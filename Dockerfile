@@ -1,5 +1,4 @@
 FROM ubuntu:trusty
-MAINTAINER Justin Menga <justin.menga@gmail.com>
 
 # Prevent dpkg errors
 ENV TERM=xterm-256color
@@ -10,15 +9,17 @@ ENV TERM=xterm-256color
 # Install node.js
 RUN apt-get update && \
     apt-get install curl git -y && \
-    curl -sL https://deb.nodesource.com/setup_4.x | sudo -E bash - && \
-    apt-get install -y nodejs 
+    curl --silent https://deb.nodesource.com/gpgkey/nodesource.gpg.key | sudo apt-key add - && \
+    curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash - && \
+    apt-get install -y nodejs
 
 ADD . /app
 WORKDIR /app
 
-# Install application dependencies
+# # Install application dependencies
 RUN npm install -g grunt-cli && \
-    npm install --unsafe-perm=true
+    npm install 
+# --unsafe-perm=true
 
-# Set entrypoint
+# # # Set entrypoint
 CMD ["node","app.js"]

@@ -1,4 +1,6 @@
-app:
-  image: jmenga/todobackend-client
-  ports:
-    - 3000:3000
+version: '3'
+services:
+  app:
+    image: storager/todobackend-client
+    ports:
+      - 3000:3000
